@@ -20,7 +20,7 @@ public class LoginMain {
 		LoginModel loginModel = new LoginModel();
 		loginModel.setJsType("1");
 		loginModel.setJsVer("10190");
-		loginModel.setLoginSig("kP2b5qoIKQ*yQnln99ymr5LCFHDmAhUsPYcPO5sH0oZqyG2ycL74FGNXjBMdITTd");
+		//loginModel.setLoginSig("kP2b5qoIKQ*yQnln99ymr5LCFHDmAhUsPYcPO5sH0oZqyG2ycL74FGNXjBMdITTd");
 	
 		loginModel.setAppid("549000912");
 		loginModel.setPtTea("2");
@@ -29,7 +29,7 @@ public class LoginMain {
 		loginModel.setR("0.04891137651351185");
 		loginModel.setUin("799062142");
 		
-		String step1Url = loginModel.getStepFirstUrl();
+		String step1Url = loginModel.getCallSeptFirstUrl();
 		try {
 			System.out.println("第一步:" + step1Url);
 			String body = HttpClientUtil.get(step1Url);
@@ -43,6 +43,7 @@ public class LoginMain {
 		}
 		
 		// step2
+		/*
 		loginModel.setAction("5-27-1483342912358");
 		loginModel.setAid("549000912");
 		loginModel.setDaid("5");
@@ -59,5 +60,6 @@ public class LoginMain {
 		loginModel.setT("1");
 		loginModel.setU("497716195");
 		loginModel.setVerifycode("!ACF");
+		*/
 	}
 }

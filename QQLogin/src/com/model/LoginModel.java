@@ -366,7 +366,7 @@ public class LoginModel {
 		this.subcapclass = subcapclass;
 	}
 	//Assembly param step1
-	private String getCallSeptFirstUrl() {
+	public String getCallSeptFirstUrl() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(this.stepFirstUrl).append("?").append("regmaster=");
 		sb.append("&appid=").append(this.appid)
@@ -383,7 +383,7 @@ public class LoginModel {
 		return sb.toString();
 	}
 	
-	private String getCallCheckCodeUrl() {
+	public String getCallCheckCodeUrl() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(this.checkCodeUrl).append("?")
 		  .append("aid=").append(this.aid)
@@ -407,13 +407,13 @@ public class LoginModel {
 		return sb.toString();
 	}
 	
-	private String getCallSetCodeUrl() {
+	public String getCallSetCodeUrl() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(this.setCodeUrl).append("?random=").append(Math.random());
 		return sb.toString();
 	}
 	
-	private Map getCallSetCodeParam() {
+	public Map getCallSetCodeParam() {
 		Map param = new HashMap();
 		param.put("aid", this.aid);
 		param.put("ans", this.ans);

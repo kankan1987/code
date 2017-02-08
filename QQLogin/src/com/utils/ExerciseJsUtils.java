@@ -24,11 +24,14 @@ public class ExerciseJsUtils {
 			Invocable invoke = (Invocable) engine;
 			// 调用merge方法，并传入两个参数
 			// c = merge(2, 3);
-			Double c = (Double) invoke.invokeFunction("merge", 2, 3);
+			//Double c = (Double) invoke.invokeFunction("merge", 2, 3);
+			//System.out.println("c = " + c);
+			String c = (String) invoke.invokeFunction("addPwd", null);
 			System.out.println("c = " + c);
 			Double c1 = (Double) invoke.invokeFunction("merge1", 2, 3);
 			System.out.println("c1 = " + c1);
 		}
-		reader.close();
+		//reader.close();
+		reader1.close();
 	}
 }
