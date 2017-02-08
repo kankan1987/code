@@ -2,6 +2,7 @@
 /RemoteSystemsTempFiles
 classes/
 target/
+bin/
 *.class
 *.properties
 .svn
