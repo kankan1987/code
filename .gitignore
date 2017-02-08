@@ -1,5 +1,7 @@
 .metadata
 /RemoteSystemsTempFiles
+classes/
+target/
 *.class
 *.properties
 .svn
