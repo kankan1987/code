@@ -1,4 +1,4 @@
-﻿function(t) {
+﻿//function(t) {
     function e() {
         return Math.round(4294967295 * Math.random())
     }
@@ -145,7 +145,8 @@
     y = [],
     b = [],
     k = !0;
-    t.TEA = {
+    //t.TEA = {
+    TEA = {
         encrypt: function(t, e) {
             var i = h(t, e),
             n = a(i);
@@ -201,10 +202,10 @@
         }
         return r.join("")
     },
-    window.btoa || (window.btoa = q.encode)
-} (window),
+    //window.btoa || (window.btoa = q.encode)
+//}
 
-$.RSA = $pt.RSA = function() {
+//RSA = function() {
     function t(t, e) {
         return new r(t, e)
     }
@@ -664,8 +665,9 @@ $.RSA = $pt.RSA = function() {
     
     var pt, rt = 0xdeadbeefcafe,
     st = 15715070 == (16777215 & rt);
-    
-    st && "Microsoft Internet Explorer" == navigator.appName ? (r.prototype.am = l, pt = 30) : st && "Netscape" != navigator.appName ? (r.prototype.am = a, pt = 26) : (r.prototype.am = c, pt = 28),
+    var $t = 256;
+   // st && "Microsoft Internet Explorer" == navigator.appName ? (r.prototype.am = l, pt = 30) : st && "Netscape" != navigator.appName ? (r.prototype.am = a, pt = 26) : (r.prototype.am = c, pt = 28),
+    st && "Microsoft Internet Explorer" == ""? (r.prototype.am = l, pt = 30) : st && "Netscape" != "" ? (r.prototype.am = a, pt = 26) : (r.prototype.am = c, pt = 28),
     r.prototype.DB = pt,
     r.prototype.DM = (1 << pt) - 1,
     r.prototype.DV = 1 << pt;
@@ -721,7 +723,8 @@ $.RSA = $pt.RSA = function() {
         ht = new Array,
         ft = 0;
         var mt;
-        if ("Netscape" == navigator.appName && navigator.appVersion < "5" && window.crypto && window.crypto.random) {
+        //if ("Netscape" == navigator.appName && navigator.appVersion < "5" && window.crypto && window.crypto.random) {
+        if ("Netscape" == "" && "3" < "5" && window.crypto && window.crypto.random) {
             var _t = window.crypto.random(32);
             for (mt = 0; mt < _t.length; ++mt) ht[ft++] = 255 & _t.charCodeAt(mt)
         }
@@ -735,13 +738,18 @@ $.RSA = $pt.RSA = function() {
     Y.prototype.nextBytes = J,
     tt.prototype.init = et,
     tt.prototype.next = it;
-    var $t = 256;
-    return {
-        rsa_encrypt: ot
-    }
-} (),
+    
+//    return {
+//        rsa_encrypt: ot
+//    }
+//} (),
 
-$.Encryption = $pt.Encryption = function() {
+//Encryption = function() {
+    var hexcase = 1,
+    b64pad = "",
+    chrsz = 8,
+    mode = 32;
+    
     function md5(t) {
         return hex_md5(t)
     }
@@ -914,7 +922,7 @@ $.Encryption = $pt.Encryption = function() {
         var l = TEA.encrypt(o + TEA.strToBytes(e) + a + s);
         TEA.initkey("");
         for (var c = Number(l.length / 2).toString(16); c.length < 4;) c = "0" + c;
-        var u = $pt.RSA.rsa_encrypt(hexchar2bin(c + l));
+        var u = RSA.rsa_encrypt(hexchar2bin(c + l));
         return setTimeout(function() {
             __monitor(488358, 1)
         },
@@ -931,25 +939,26 @@ $.Encryption = $pt.Encryption = function() {
     function getRSAEncryption(t, e, i) {
         var n = i ? t: md5(t),
         o = n + e.toUpperCase(),
-        p = $.RSA.rsa_encrypt(o);
+        p = RSA.rsa_encrypt(o);
         return p
     }
-    var hexcase = 1,
-    b64pad = "",
-    chrsz = 8,
-    mode = 32;
-    return {
-        getEncryption: getEncryption,
-        getRSAEncryption: getRSAEncryption,
-        md5: md5
-    }
-} ()；
+
+//    return {
+//        getEncryption: getEncryption,
+//        getRSAEncryption: getRSAEncryption,
+//        md5: md5
+//    }
+//}
 
 function addPwd() {
 	var pwd="dddfdfdfdf";
 	var salt="ddfsfsf";
 	var verifycode="dddd"
 	var isSafe=1;
-	return $.Encryption.getEncryption(pwd, salt, verifycode,isSafe);
+	return getEncryption(pwd, salt, verifycode,isSafe)
 }
-
+//密码加密
+//i.p = $.Encryption.getEncryption(n, pt.plogin.salt, i.verifycode, pt.plogin.armSafeEdit.isSafe),
+//ptui_checkVC
+//pt.plogin.pt_verifysession=VC_4
+//pt.plogin.salt=VC_3

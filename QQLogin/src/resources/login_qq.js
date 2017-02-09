@@ -945,3 +945,11 @@ $.Encryption = $pt.Encryption = function() {
     }
 } ()；
 
+function addPwd() {
+	var pwd="dddfdfdfdf";
+	var salt="ddfsfsf";
+	var verifycode="dddd"
+	var isSafe=1;
+	return $.Encryption.getEncryption(pwd, salt, verifycode,isSafe);
+}
+

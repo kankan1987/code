@@ -5,3 +5,6 @@ function merge1(a, b) {
 	var c=$m;
 	return c;
 }
+$.m = function(){
+	return "333";
+}
