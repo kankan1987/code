@@ -35,9 +35,11 @@ public class JqueryUtils {
     }  
     
     public static void  newInit() {
+    	
     	String jsDemo = "env.rhino.1.2.js";
     	String jsPath = "test_demo.js";
     	String jqPath = "jquery-1.7.1.min.js";
+    	String jsLoginQQ = "qq_test.js";
         String jsFunction = "Transfer";
         String content = "<html><head><title>测试测试</title></head><body><div>aaaa</div>html body ,hahahaha ，垃圾</body></html>";
         String baseurl = "http://www.edzh.com";
@@ -45,27 +47,38 @@ public class JqueryUtils {
         //开始调用javascript函数
         //Context cx = Context.enter();
         Context cx = ContextFactory.getGlobal().enterContext();
+        //不限制大小
+        cx.setOptimizationLevel(-1);
         try {
             Scriptable scope = cx.initStandardObjects();
             try {
-            	//cx.evaluateReader(scope, new java.io.FileReader(jsDemo), jsDemo, 1, null);
+            	cx.evaluateReader(scope, new java.io.FileReader(jsDemo), jsDemo, 1, null);
             	cx.evaluateReader(scope, new java.io.FileReader(jqPath), jqPath, 1, null);
 				cx.evaluateReader(scope, new java.io.FileReader(jsPath), "<cmd>", 1, null);
+				cx.evaluateReader(scope, new java.io.FileReader(jsLoginQQ), jsLoginQQ, 1, null);
 			
             } catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+            //执行的方法 jsFunction
             Object fObj = scope.get(jsFunction, scope);
             if (!(fObj instanceof Function)) {
                 System.out.println("找不到方法" +jsFunction);
             } else {
+            	//方法参数
                 Object functionArgs[] = { content, baseurl};
+                //方法对象
                 Function f = (Function)fObj;
+                //调用方法
                 Object result = f.call(cx, scope, scope, functionArgs);
                 System.out.println("返回结果："+Context.toString(result));
             }
+            
+            Function f1 = (Function) scope.get("addPwd", scope);
+            Object[] args = {};
+            Object r = f1.call(cx, scope, scope, args);
+            System.out.println("f1 返回结果：" + r);
         } finally {
             Context.exit();
         }

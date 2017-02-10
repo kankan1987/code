@@ -1,211 +1,6 @@
-﻿function(t) {
-    function e() {
-        return Math.round(4294967295 * Math.random())
-    }
-    function i(t, e, i) { (!i || i > 4) && (i = 4);
-        for (var n = 0,
-        o = e; e + i > o; o++) n <<= 8,
-        n |= t[o];
-        return (4294967295 & n) >>> 0
-    }
-    function n(t, e, i) {
-        t[e + 3] = i >> 0 & 255,
-        t[e + 2] = i >> 8 & 255,
-        t[e + 1] = i >> 16 & 255,
-        t[e + 0] = i >> 24 & 255
-    }
-    function o(t) {
-        if (!t) return "";
-        for (var e = "",
-        i = 0; i < t.length; i++) {
-            var n = Number(t[i]).toString(16);
-            1 == n.length && (n = "0" + n),
-            e += n
-        }
-        return e
-    }
-    function p(t) {
-        for (var e = "",
-        i = 0; i < t.length; i += 2) e += String.fromCharCode(parseInt(t.substr(i, 2), 16));
-        return e
-    }
-    function r(t, e) {
-        if (!t) return "";
-        e && (t = s(t));
-        for (var i = [], n = 0; n < t.length; n++) i[n] = t.charCodeAt(n);
-        return o(i)
-    }
-    function s(t) {
-        var e, i, n = [],
-        o = t.length;
-        for (e = 0; o > e; e++) i = t.charCodeAt(e),i > 0 && 127 >= i ? n.push(t.charAt(e)) : i >= 128 && 2047 >= i ? n.push(String.fromCharCode(192 | i >> 6 & 31), String.fromCharCode(128 | 63 & i)) : i >= 2048 && 65535 >= i && n.push(String.fromCharCode(224 | i >> 12 & 15), String.fromCharCode(128 | i >> 6 & 63), String.fromCharCode(128 | 63 & i));
-        
-        return n.join("")
-    }
-    function a(t) {
-        _ = new Array(8),
-        $ = new Array(8),
-        v = w = 0,
-        k = !0,
-        m = 0;
-        var i = t.length,
-        n = 0;
-        m = (i + 10) % 8,
-        0 != m && (m = 8 - m),
-        y = new Array(i + m + 10),
-        _[0] = 255 & (248 & e() | m);
-        for (var o = 1; m >= o; o++) _[o] = 255 & e();
-        m++;
-        for (var o = 0; 8 > o; o++) $[o] = 0;
-        for (n = 1; 2 >= n;) 8 > m && (_[m++] = 255 & e(), n++),
-        8 == m && c();
-        for (var o = 0; i > 0;) 8 > m && (_[m++] = t[o++], i--),
-        8 == m && c();
-        for (n = 1; 7 >= n;) 8 > m && (_[m++] = 0, n++),
-        8 == m && c();
-        return y
-    }
-    function l(t) {
-        var e = 0,
-        i = new Array(8),
-        n = t.length;
-        if (b = t, n % 8 != 0 || 16 > n) return null;
-        if ($ = g(t), m = 7 & $[0], e = n - m - 10, 0 > e) return null;
-        for (var o = 0; o < i.length; o++) i[o] = 0;
-        y = new Array(e),
-        w = 0,
-        v = 8,
-        m++;
-        for (var p = 1; 2 >= p;) if (8 > m && (m++, p++), 8 == m && (i = t, !d())) return null;
-        for (var o = 0; 0 != e;) if (8 > m && (y[o] = 255 & (i[w + m] ^ $[m]), o++, e--, m++), 8 == m && (i = t, w = v - 8, !d())) return null;
-        for (p = 1; 8 > p; p++) {
-            if (8 > m) {
-                if (0 != (i[w + m] ^ $[m])) return null;
-                m++
-            }
-            if (8 == m && (i = t, w = v, !d())) return null
-        }
-        return y
-    }
-    function c() {
-        for (var t = 0; 8 > t; t++) _[t] ^= k ? $[t] : y[w + t];
-        for (var e = u(_), t = 0; 8 > t; t++) y[v + t] = e[t] ^ $[t],
-        $[t] = _[t];
-        w = v,
-        v += 8,
-        m = 0,
-        k = !1
-    }
-    function u(t) {
-        for (var e = 16,
-        o = i(t, 0, 4), p = i(t, 4, 4), r = i(f, 0, 4), s = i(f, 4, 4), a = i(f, 8, 4), l = i(f, 12, 4), c = 0, u = 2654435769; e-->0;) c += u,
-        c = (4294967295 & c) >>> 0,
-        o += (p << 4) + r ^ p + c ^ (p >>> 5) + s,
-        o = (4294967295 & o) >>> 0,
-        p += (o << 4) + a ^ o + c ^ (o >>> 5) + l,
-        p = (4294967295 & p) >>> 0;
-        var g = new Array(8);
-        return n(g, 0, o),
-        n(g, 4, p),
-        g
-    }
-    function g(t) {
-        for (var e = 16,
-        o = i(t, 0, 4), p = i(t, 4, 4), r = i(f, 0, 4), s = i(f, 4, 4), a = i(f, 8, 4), l = i(f, 12, 4), c = 3816266640, u = 2654435769; e-->0;) p -= (o << 4) + a ^ o + c ^ (o >>> 5) + l,
-        p = (4294967295 & p) >>> 0,
-        o -= (p << 4) + r ^ p + c ^ (p >>> 5) + s,
-        o = (4294967295 & o) >>> 0,
-        c -= u,
-        c = (4294967295 & c) >>> 0;
-        var g = new Array(8);
-        return n(g, 0, o),
-        n(g, 4, p),
-        g
-    }
-    function d() {
-        for (var t = (b.length, 0); 8 > t; t++) $[t] ^= b[v + t];
-        return $ = g($),
-        v += 8,
-        m = 0,
-        !0
-    }
-    function h(t, e) {
-        var i = [];
-        if (e) for (var n = 0; n < t.length; n++) i[n] = 255 & t.charCodeAt(n);
-        else for (var o = 0,
-        n = 0; n < t.length; n += 2) i[o++] = parseInt(t.substr(n, 2), 16);
-        return i
-    }
-    var f = "",
-    m = 0,
-    _ = [],
-    $ = [],
-    v = 0,
-    w = 0,
-    y = [],
-    b = [],
-    k = !0;
-    t.TEA = {
-        encrypt: function(t, e) {
-            var i = h(t, e),
-            n = a(i);
-            return o(n)
-        },
-        enAsBase64: function(t, e) {
-            for (var i = h(t, e), n = a(i), o = "", p = 0; p < n.length; p++) o += String.fromCharCode(n[p]);
-            return btoa(o)
-        },
-        decrypt: function(t) {
-            var e = h(t, !1),
-            i = l(e);
-            return o(i)
-        },
-        initkey: function(t, e) {
-            f = h(t, e)
-        },
-        bytesToStr: p,
-        strToBytes: r,
-        bytesInStr: o,
-        dataFromStr: h
-    };
-    var q = {};
-    q.PADCHAR = "=",
-    q.ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
-    q.getbyte = function(t, e) {
-        var i = t.charCodeAt(e);
-        if (i > 255) throw "INVALID_CHARACTER_ERR: DOM Exception 5";
-        return i
-    },
-    q.encode = function(t) {
-        if (1 != arguments.length) throw "SyntaxError: Not enough arguments";
-        var e, i, n = q.PADCHAR,
-        o = q.ALPHA,
-        p = q.getbyte,
-        r = [];
-        t = "" + t;
-        var s = t.length - t.length % 3;
-        if (0 == t.length) return t;
-        for (e = 0; s > e; e += 3) i = p(t, e) << 16 | p(t, e + 1) << 8 | p(t, e + 2),
-        r.push(o.charAt(i >> 18)),
-        r.push(o.charAt(i >> 12 & 63)),
-        r.push(o.charAt(i >> 6 & 63)),
-        r.push(o.charAt(63 & i));
-        switch (t.length - s) {
-        case 1:
-            i = p(t, e) << 16,
-            r.push(o.charAt(i >> 18) + o.charAt(i >> 12 & 63) + n + n);
-            break;
-        case 2:
-            i = p(t, e) << 16 | p(t, e + 1) << 8,
-            r.push(o.charAt(i >> 18) + o.charAt(i >> 12 & 63) + o.charAt(i >> 6 & 63) + n)
-        }
-        return r.join("")
-    },
-    window.btoa || (window.btoa = q.encode)
-} (window),
-
-//$.RSA = $pt.RSA = function() {
-$.RSA = function() {
+$ = window.$ || {},
+$pt = window.$pt || {},
+$.RSA = $pt.RSA = function() {
     function t(t, e) {
         return new r(t, e)
     }
@@ -741,9 +536,215 @@ $.RSA = function() {
         rsa_encrypt: ot
     }
 } (),
+function(t) {
+    function e() {
+        return Math.round(4294967295 * Math.random())
+    }
+    function i(t, e, i) { (!i || i > 4) && (i = 4);
+        for (var n = 0,
+        o = e; e + i > o; o++) n <<= 8,
+        n |= t[o];
+        return (4294967295 & n) >>> 0
+    }
+    function n(t, e, i) {
+        t[e + 3] = i >> 0 & 255,
+        t[e + 2] = i >> 8 & 255,
+        t[e + 1] = i >> 16 & 255,
+        t[e + 0] = i >> 24 & 255
+    }
+    function o(t) {
+        if (!t) return "";
+        for (var e = "",
+        i = 0; i < t.length; i++) {
+            var n = Number(t[i]).toString(16);
+            1 == n.length && (n = "0" + n),
+            e += n
+        }
+        return e
+    }
+    function p(t) {
+        for (var e = "",
+        i = 0; i < t.length; i += 2) e += String.fromCharCode(parseInt(t.substr(i, 2), 16));
+        return e
+    }
+    function r(t, e) {
+        if (!t) return "";
+        e && (t = s(t));
+        for (var i = [], n = 0; n < t.length; n++) i[n] = t.charCodeAt(n);
+        return o(i)
+    }
+    function s(t) {
+        var e, i, n = [],
+        o = t.length;
+        for (e = 0; o > e; e++) i = t.charCodeAt(e),i > 0 && 127 >= i ? n.push(t.charAt(e)) : i >= 128 && 2047 >= i ? n.push(String.fromCharCode(192 | i >> 6 & 31), String.fromCharCode(128 | 63 & i)) : i >= 2048 && 65535 >= i && n.push(String.fromCharCode(224 | i >> 12 & 15), String.fromCharCode(128 | i >> 6 & 63), String.fromCharCode(128 | 63 & i));
+        
+        return n.join("")
+    }
+    function a(t) {
+        _ = new Array(8),
+        $ = new Array(8),
+        v = w = 0,
+        k = !0,
+        m = 0;
+        var i = t.length,
+        n = 0;
+        m = (i + 10) % 8,
+        0 != m && (m = 8 - m),
+        y = new Array(i + m + 10),
+        _[0] = 255 & (248 & e() | m);
+        for (var o = 1; m >= o; o++) _[o] = 255 & e();
+        m++;
+        for (var o = 0; 8 > o; o++) $[o] = 0;
+        for (n = 1; 2 >= n;) 8 > m && (_[m++] = 255 & e(), n++),
+        8 == m && c();
+        for (var o = 0; i > 0;) 8 > m && (_[m++] = t[o++], i--),
+        8 == m && c();
+        for (n = 1; 7 >= n;) 8 > m && (_[m++] = 0, n++),
+        8 == m && c();
+        return y
+    }
+    function l(t) {
+        var e = 0,
+        i = new Array(8),
+        n = t.length;
+        if (b = t, n % 8 != 0 || 16 > n) return null;
+        if ($ = g(t), m = 7 & $[0], e = n - m - 10, 0 > e) return null;
+        for (var o = 0; o < i.length; o++) i[o] = 0;
+        y = new Array(e),
+        w = 0,
+        v = 8,
+        m++;
+        for (var p = 1; 2 >= p;) if (8 > m && (m++, p++), 8 == m && (i = t, !d())) return null;
+        for (var o = 0; 0 != e;) if (8 > m && (y[o] = 255 & (i[w + m] ^ $[m]), o++, e--, m++), 8 == m && (i = t, w = v - 8, !d())) return null;
+        for (p = 1; 8 > p; p++) {
+            if (8 > m) {
+                if (0 != (i[w + m] ^ $[m])) return null;
+                m++
+            }
+            if (8 == m && (i = t, w = v, !d())) return null
+        }
+        return y
+    }
+    function c() {
+        for (var t = 0; 8 > t; t++) _[t] ^= k ? $[t] : y[w + t];
+        for (var e = u(_), t = 0; 8 > t; t++) y[v + t] = e[t] ^ $[t],
+        $[t] = _[t];
+        w = v,
+        v += 8,
+        m = 0,
+        k = !1
+    }
+    function u(t) {
+        for (var e = 16,
+        o = i(t, 0, 4), p = i(t, 4, 4), r = i(f, 0, 4), s = i(f, 4, 4), a = i(f, 8, 4), l = i(f, 12, 4), c = 0, u = 2654435769; e-->0;) c += u,
+        c = (4294967295 & c) >>> 0,
+        o += (p << 4) + r ^ p + c ^ (p >>> 5) + s,
+        o = (4294967295 & o) >>> 0,
+        p += (o << 4) + a ^ o + c ^ (o >>> 5) + l,
+        p = (4294967295 & p) >>> 0;
+        var g = new Array(8);
+        return n(g, 0, o),
+        n(g, 4, p),
+        g
+    }
+    function g(t) {
+        for (var e = 16,
+        o = i(t, 0, 4), p = i(t, 4, 4), r = i(f, 0, 4), s = i(f, 4, 4), a = i(f, 8, 4), l = i(f, 12, 4), c = 3816266640, u = 2654435769; e-->0;) p -= (o << 4) + a ^ o + c ^ (o >>> 5) + l,
+        p = (4294967295 & p) >>> 0,
+        o -= (p << 4) + r ^ p + c ^ (p >>> 5) + s,
+        o = (4294967295 & o) >>> 0,
+        c -= u,
+        c = (4294967295 & c) >>> 0;
+        var g = new Array(8);
+        return n(g, 0, o),
+        n(g, 4, p),
+        g
+    }
+    function d() {
+        for (var t = (b.length, 0); 8 > t; t++) $[t] ^= b[v + t];
+        return $ = g($),
+        v += 8,
+        m = 0,
+        !0
+    }
+    function h(t, e) {
+        var i = [];
+        if (e) for (var n = 0; n < t.length; n++) i[n] = 255 & t.charCodeAt(n);
+        else for (var o = 0,
+        n = 0; n < t.length; n += 2) i[o++] = parseInt(t.substr(n, 2), 16);
+        return i
+    }
+    var f = "",
+    m = 0,
+    _ = [],
+    $ = [],
+    v = 0,
+    w = 0,
+    y = [],
+    b = [],
+    k = !0;
+    t.TEA = {
+        encrypt: function(t, e) {
+            var i = h(t, e),
+            n = a(i);
+            return o(n)
+        },
+        enAsBase64: function(t, e) {
+            for (var i = h(t, e), n = a(i), o = "", p = 0; p < n.length; p++) o += String.fromCharCode(n[p]);
+            return btoa(o)
+        },
+        decrypt: function(t) {
+            var e = h(t, !1),
+            i = l(e);
+            return o(i)
+        },
+        initkey: function(t, e) {
+            f = h(t, e)
+        },
+        bytesToStr: p,
+        strToBytes: r,
+        bytesInStr: o,
+        dataFromStr: h
+    };
+    var q = {};
+    q.PADCHAR = "=",
+    q.ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
+    q.getbyte = function(t, e) {
+        var i = t.charCodeAt(e);
+        if (i > 255) throw "INVALID_CHARACTER_ERR: DOM Exception 5";
+        return i
+    },
+    q.encode = function(t) {
+        if (1 != arguments.length) throw "SyntaxError: Not enough arguments";
+        var e, i, n = q.PADCHAR,
+        o = q.ALPHA,
+        p = q.getbyte,
+        r = [];
+        t = "" + t;
+        var s = t.length - t.length % 3;
+        if (0 == t.length) return t;
+        for (e = 0; s > e; e += 3) i = p(t, e) << 16 | p(t, e + 1) << 8 | p(t, e + 2),
+        r.push(o.charAt(i >> 18)),
+        r.push(o.charAt(i >> 12 & 63)),
+        r.push(o.charAt(i >> 6 & 63)),
+        r.push(o.charAt(63 & i));
+        switch (t.length - s) {
+        case 1:
+            i = p(t, e) << 16,
+            r.push(o.charAt(i >> 18) + o.charAt(i >> 12 & 63) + n + n);
+            break;
+        case 2:
+            i = p(t, e) << 16 | p(t, e + 1) << 8,
+            r.push(o.charAt(i >> 18) + o.charAt(i >> 12 & 63) + o.charAt(i >> 6 & 63) + n)
+        }
+        return r.join("")
+    },
+    window.btoa || (window.btoa = q.encode)
+} (window),
+$ = window.$ || {},
+$pt = window.$pt || {},
 
-//$.Encryption = $pt.Encryption = function() {
-$.Encryption = function() {
+$.Encryption = $pt.Encryption = function() {
     function md5(t) {
         return hex_md5(t)
     }
@@ -946,7 +947,6 @@ $.Encryption = function() {
         md5: md5
     }
 } ();
-
 function addPwd() {
 	var pwd="dddfdfdfdf";
 	var salt="ddfsfsf";
@@ -954,4 +954,3 @@ function addPwd() {
 	var isSafe=1;
 	return $.Encryption.getEncryption(pwd, salt, verifycode,isSafe);
 }
-
